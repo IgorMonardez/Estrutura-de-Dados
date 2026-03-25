@@ -1,16 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-void verifica_primo(int i) {
-    if(i%2 == 0 && i != 2) return;
-
-    for(int j = 3; j<i; j++) {
-        if(i%j == 0) return;
-    }
-
-    printf("%d\t", i);
-
-}
+void verifica_primo(int i);
 
 int main(int argc, char* argv) {
 
@@ -29,4 +20,16 @@ int main(int argc, char* argv) {
     }
 
     return 0;
+}
+
+
+void verifica_primo(int i) {
+    if(i%2 == 0 && i != 2) return;
+
+    for(int j = 3; j<i; j++) {
+        if(i%j == 0) return;
+    }
+
+    printf("%d\t", i);
+
 }
