@@ -1,5 +1,4 @@
 #include<stdio.h>
-#include<math.h>
 
 int bin_num(int n);
 
@@ -9,25 +8,23 @@ int main(int argc, char const *argv[])
 	while(1) {
 		scanf("%d", &num);
 		
-		if(num <= 0) break;
+		if(num < 0) break;
 
-		bin_num(num);
+		if(num == 0) 
+			printf("0");
+		else
+			bin_num(num);
+
+		printf("\n");
 	}
 
 	return 0;
 }
 
 int bin_num(int n) {
-	int i = 0;
-	int vet[sizeof(n) * 8];
-	while(n > 0) {
-		vet[i] = n%2; 
-		n /= 2;		
-		i++;
+	if(n>1) {
+		bin_num(n/2);
 	}
 	
-	for(int j = i - 1; j>=0; j--) {
-		printf("%d",vet[j]);
-	}
-	printf("\n");
+	printf("%d", n%2);
 }
