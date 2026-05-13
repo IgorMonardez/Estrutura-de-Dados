@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<string.h>
+#include<stdlib.h>
 
 char * maior_sub(char *str1, char *str2);
 
@@ -16,7 +17,7 @@ int main(void) {
 	char *result = maior_sub(str1, str2);
 
 	if(result)
-		printf("Possuem substring.\n");
+		printf("Possuem substring %s.\n", result);
 	else
 		printf("Não possuem substring.\n");
 
@@ -30,20 +31,31 @@ char * maior_sub(char *str1, char *str2) {
 	long int len1 = strlen(str1);
 	long int len2 = strlen(str2);
 
-	char * maior_string = malloc(sizeof(char) * len1);
-	char * substring;
-	int len_maior_string = sizeof(maior_string);
+	int max_len = 0;
+	int start_index = -1;
 
 	for(int i = 0; i<len1; i++){
-		substring = str1;
-		substring[i + 1] = '\0';
+		for(int j = 0; j<len2; j++) {
+			int k = 0;
+			while( ((i+k) < len1) && ((j + k) < len2) && (str1[i + k] == str2[j + k])) {
+				k++;
+			}
 
-		if(strstr(substring, str2)) {
-			int len_substring = strlen(substring);
-			maior_string = (len_substring > len_maior_string) ? substring : maior_string;
+			if(k > max_len) {
+				max_len = k;
+				start_index = i;
+			}
 		}
 	}
 
+	char *maior_string = (char*)malloc(sizeof(char) * (max_len + 1));
+
+	if(maior_string == NULL) return NULL;
+
+	if(max_len > 0) {
+		strncpy(maior_string, &str1[start_index], max_len);
+	}
+	if(maior_string[max_len] != '\0') maior_string[max_len] = '\0';
 
 	return maior_string;
 }
